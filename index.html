@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anand Dhokai AI - Your Smart Assistant for Gujarat Electricity Services</title>
+    <meta name="description" content="Anand Dhokai AI helps Gujarat Electric Board users with electricity queries, bill payment, power cuts, and more. Available 24/7 in Gujarati and English.">
+    <meta name="keywords" content="Gujarat Electric Board, GEB, AI Chatbot, Electricity Help, Bill Payment, Power Cut, Anand Dhokai">
+    <meta name="author" content="Anand Dhokai AI">
+    <meta name="theme-color" content="#E3F2FD">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>⚡ Anand Dhokai AI</h1>
+                    <p class="tagline">Your Smart Assistant for Gujarat Electricity Services</p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">
+                        <span id="langText">English</span>
+                    </button>
+                    <button class="api-btn" onclick="openAPIModal()">🔑 API Key</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- API Key Modal -->
+    <div id="apiModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAPIModal()">&times;</span>
+            <h2>OpenAI API Configuration</h2>
+            <p>Enter your OpenAI API key to enable the AI chatbot:</p>
+            <input type="password" id="apiKeyInput" placeholder="sk-..." class="api-input">
+            <button onclick="saveAPIKey()" class="save-btn">Save API Key</button>
+            <p class="api-note">ℹ️ Your API key is stored locally in your browser only.</p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 id="heroTitle">Ask Anything About Your Electricity – Instantly</h2>
+                    <p id="heroSubtitle">Get instant answers about bills, power cuts, new connections, and more.</p>
+                    <button class="cta-btn" onclick="scrollToChat()">
+                        <span id="chatBtnText">Start Chat</span> →
+                    </button>
+                </div>
+                <div class="hero-illustration">
+                    <div class="ai-bot">
+                        <div class="bot-head"></div>
+                        <div class="bot-body"></div>
+                        <div class="bot-arms">
+                            <div class="arm"></div>
+                            <div class="arm"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section class="chat-section" id="chatSection">
+        <div class="container">
+            <h2 id="chatHeading">Chat with Anand Dhokai AI</h2>
+            
+            <div class="chat-container">
+                <div class="chat-history" id="chatHistory">
+                    <div class="message bot-message">
+                        <p id="greeting">नमस्ते! मैं Anand Dhokai हूँ। आपकी बिजली से संबंधित समस्या का समाधान करने के लिए यहाँ हूँ। 🎯</p>
+                    </div>
+                </div>
+
+                <div class="quick-buttons">
+                    <button class="quick-btn" onclick="sendQuickMessage('bill')" id="billBtn">💰 Bill Issue</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('powercut')" id="powerBtn">⚡ Power Cut</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('connection')" id="connBtn">🔌 New Connection</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('complaint')" id="complaintBtn">📋 Complaint</button>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="Type your electricity query here…" 
+                            onkeypress="handleEnter(event)"
+                            class="chat-input"
+                        >
+                        <button class="send-btn" onclick="sendMessage()">Send</button>
+                    </div>
+                    <p class="disclaimer-small" id="disclaimerSmall">This AI provides guidance only. For official actions, contact Gujarat Electric Board.</p>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p id="typingText">Anand Dhokai is typing...</p>
+                </div>
+            </div>
+
+            <!-- Clear Chat Button -->
+            <div class="chat-actions">
+                <button class="clear-btn" onclick="clearChat()" id="clearBtn">Clear Chat History</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 id="featuresTitle">Why Choose Anand Dhokai AI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3 id="feat1">24/7 Assistance</h3>
+                    <p id="featDesc1">Always available whenever you need help with your electricity queries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 id="feat2">Instant Replies</h3>
+                    <p id="featDesc2">Get quick answers without waiting for customer service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🇬🇺</div>
+                    <h3 id="feat3">Gujarati Language Support</h3>
+                    <p id="featDesc3">Communicate in your preferred language - Gujarati or English.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 id="feat4">Easy & User Friendly</h3>
+                    <p id="featDesc4">Simple interface designed for everyone, including senior citizens.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 id="howTitle">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 id="step1">Ask Your Question</h3>
+                    <p id="stepDesc1">Type your electricity-related query in simple language.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 id="step2">Get Instant Answer</h3>
+                    <p id="stepDesc2">AI processes and provides relevant guidance instantly.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 id="step3">Take Action</h3>
+                    <p id="stepDesc3">Follow the guidance or contact GEB for official help if needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section -->
+    <section class="disclaimer">
+        <div class="container">
+            <div class="disclaimer-box">
+                <h3>⚠️ Important Disclaimer</h3>
+                <p id="disclaimerText">This AI provides guidance and information only. For official actions, account changes, bill disputes, or emergency services, please contact Gujarat Electric Board (GEB) directly.</p>
+                <p id="contactInfo"><strong>GEB Customer Care: 1912 (Toll-Free)</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About</h4>
+                    <p id="footerAbout">Anand Dhokai AI - Your smart assistant for Gujarat Electricity Services.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" id="privacyLink">Privacy Policy</a></li>
+                        <li><a href="#" id="termsLink">Terms of Use</a></li>
+                        <li><a href="#" id="contactLink">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 id="gebInfo">GEB Contact</h4>
+                    <p>Phone: <strong>1912</strong></p>
+                    <p>Website: <a href="https://geb.gov.in" target="_blank">geb.gov.in</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="copyright">&copy; 2025 Anand Dhokai AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
